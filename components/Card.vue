@@ -30,61 +30,35 @@ export default {
         }
     },
     props: {
-        text: {
-            type: String,
-            required: false,
-            default: '',
-            validator: value => {
-                return value.length >= 1
-            }
-        },
         country: {
             type: String,
             required: false,
-            default: 'China',
-            validator: value => {
-                return value.length >= 1
-            }
+            default: 'China'
         },
         province: {
             type: String,
             required: false,
-            default: 'Hubei',
-            validator: value => {
-                return value.length >= 1
-            }
+            default: 'Hubei'
         },
         code: {
             type: String,
             required: false,
-            default: 'CN',
-            validator: value => {
-                return value.length >= 1
-            }
+            default: 'CN'
         },
         confirmedCases: {
-            type: String,
+            type: Number,
             required: false,
-            default: 0,
-            validator: value => {
-                return value.length >= 0
-            }
+            default: 0
         },
         recoveredCases: {
-            type: String,
+            type: Number,
             required: false,
-            default: 0,
-            validator: value => {
-                return value.length >= 0
-            }
+            default: 0
         },
         deathsCases: {
-            type: String,
+            type: Number,
             required: false,
-            default: 0,
-            validator: value => {
-                return value.length >= 0
-            }
+            default: 0
         }
     }
 }

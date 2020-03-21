@@ -33,9 +33,21 @@ export default {
     components: {
         Card
     },
+    data() {
+        return{
+            countriesList: []
+        }
+    },
+    mounted(){
+        this.countries.forEach(country => {
+            this.countriesList.push(country.countryRegion)
+        });
+        this.countriesList = this.countriesList.filter((item, index) => this.countriesList.indexOf(item) === index)
+        console.log(this.countriesList)
+    },
     async asyncData({ params, query, $axios, error, store }) {
         try {
-            const url = 'https://covid19.mathdro.id/api/confirmed'
+            const url = `https://covid19.mathdro.id/api/confirmed`
             const { data } = await $axios.get(url)
             return {
                 countries: data
@@ -43,13 +55,19 @@ export default {
         } catch (error) {
             return error
         }
+    },
+    methods: {
+        async getCountryInfo(country) {
+            try {
+                const url = `https://covid19.mathdro.id/api/countries/${country}`
+                const { data } = await $axios.get(url)
+                return {
+                    country: data
+                }
+            } catch (error) {
+                return error
+            }
+        }
     }
 }
 </script>
-
-<style scoped>
-.card-countries {
-    columns: 3;
-    background: red;
-}
-</style>
