@@ -3,18 +3,19 @@
     <header class="header">
       <Header />
     </header>
-    <main class="main">
       <nuxt />
-    </main>
+    <Footer class="footer" />
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export default {
   components: {
-    Header
+    Header,
+    Footer
   },
   data() {
     return {}
@@ -45,11 +46,6 @@ html {
 header {
   grid-area: 1 / 1 / 2 / 2;
   height: fit-content;
-}
-
-main {
-  grid-area: 2 / 1 / 3 / 2;
-  margin-top: 4.5rem;
 }
 
 footer {
