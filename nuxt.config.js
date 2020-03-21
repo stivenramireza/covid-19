@@ -1,10 +1,14 @@
 module.exports = {
   mode: 'universal',
+
+  server: {
+    host: '0.0.0.0'
+  },
   /*
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: '%s | COVID-19',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -46,9 +50,21 @@ module.exports = {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
+    analyze: false,
+    extend(config, ctx) {
+      config.node = {
+        fs: 'empty',
+        net: 'empty'
+      }
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   }
 }
