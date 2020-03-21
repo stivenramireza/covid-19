@@ -8,7 +8,20 @@
             </template>
         </b-jumbotron>
         <div class="container">
-            <Card text="123" />
+            <div class="row">
+                <b-card-group columns>
+                    <Card
+                        v-for="(item, index) in countries"
+                        :key="index"
+                        :country="item.countryRegion"
+                        :province="item.provinceState"
+                        :code="item.iso2"
+                        :confirmed-cases="item.confirmed"
+                        :recovered-cases="item.recovered"
+                        :deaths-cases="item.deaths"
+                    />
+                </b-card-group>
+            </div>
         </div>
     </div>
 </template>
@@ -20,10 +33,23 @@ export default {
     components: {
         Card
     },
-    data() {
-        return {
-            
+    async asyncData({ params, query, $axios, error, store }) {
+        try {
+            const url = 'https://covid19.mathdro.id/api/confirmed'
+            const { data } = await $axios.get(url)
+            return {
+                countries: data
+            }
+        } catch (error) {
+            return error
         }
     }
 }
 </script>
+
+<style scoped>
+.card-countries {
+    columns: 3;
+    background: red;
+}
+</style>
